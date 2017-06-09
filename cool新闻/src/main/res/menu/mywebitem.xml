@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/qita"
+        android:icon="@android:drawable/ic_menu_search"
+        android:title="刷新"
+        app:showAsAction="never">
+    </item>
+    <item
+        android:id="@+id/fuzhi"
+        android:title="复制"
+        app:showAsAction="never"></item>
+    <item
+        android:id="@+id/fenxiang"
+        android:icon="@android:drawable/ic_menu_search"
+        android:title="分享"
+        app:showAsAction="never">
+
+    </item>
+    <item
+        android:id="@+id/favorite"
+        android:icon="@drawable/ic_favorite_border_black_24dp"
+        android:title="收藏"
+        app:showAsAction="always">
+    </item>
+</menu>

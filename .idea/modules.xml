@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/DB Demo/DB Demo.iml" filepath="$PROJECT_DIR$/DB Demo/DB Demo.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Map/Map.iml" filepath="$PROJECT_DIR$/Map/Map.iml" />
+      <module fileurl="file://$PROJECT_DIR$/cool新闻/cool新闻.iml" filepath="$PROJECT_DIR$/cool新闻/cool新闻.iml" />
+      <module fileurl="file://$PROJECT_DIR$/mapapp/mapapp.iml" filepath="$PROJECT_DIR$/mapapp/mapapp.iml" />
+      <module fileurl="file://$PROJECT_DIR$/myapp.iml" filepath="$PROJECT_DIR$/myapp.iml" />
+      <module fileurl="file://$PROJECT_DIR$/myjava/myjava.iml" filepath="$PROJECT_DIR$/myjava/myjava.iml" />
+      <module fileurl="file://$PROJECT_DIR$/service_my/service_my.iml" filepath="$PROJECT_DIR$/service_my/service_my.iml" />
+      <module fileurl="file://$PROJECT_DIR$/wifi万能钥匙/wifi万能钥匙.iml" filepath="$PROJECT_DIR$/wifi万能钥匙/wifi万能钥匙.iml" />
+      <module fileurl="file://$PROJECT_DIR$/哔哩哔哩动画/哔哩哔哩动画.iml" filepath="$PROJECT_DIR$/哔哩哔哩动画/哔哩哔哩动画.iml" />
+      <module fileurl="file://$PROJECT_DIR$/天气博士/天气博士.iml" filepath="$PROJECT_DIR$/天气博士/天气博士.iml" />
+      <module fileurl="file://$PROJECT_DIR$/教学app/教学app.iml" filepath="$PROJECT_DIR$/教学app/教学app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/洪荒之水/洪荒之水.iml" filepath="$PROJECT_DIR$/洪荒之水/洪荒之水.iml" />
+      <module fileurl="file://$PROJECT_DIR$/滑动效果/滑动效果.iml" filepath="$PROJECT_DIR$/滑动效果/滑动效果.iml" />
+      <module fileurl="file://$PROJECT_DIR$/考试/考试.iml" filepath="$PROJECT_DIR$/考试/考试.iml" />
+      <module fileurl="file://$PROJECT_DIR$/过渡动画/过渡动画.iml" filepath="$PROJECT_DIR$/过渡动画/过渡动画.iml" />
+    </modules>
+  </component>
+</project>
