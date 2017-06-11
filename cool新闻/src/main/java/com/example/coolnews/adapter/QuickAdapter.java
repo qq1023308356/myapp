@@ -13,6 +13,7 @@ import com.example.coolnews.MyApplication;
 import com.example.coolnews.R;
 import com.example.coolnews.activity.MyWebview;
 import com.example.coolnews.entity.news;
+import com.example.coolnews.tool.SharedPreferenceUtil;
 import com.squareup.picasso.Picasso;
 import com.stx.xhb.xbanner.XBanner;
 import com.stx.xhb.xbanner.transformers.Transformer;
@@ -84,7 +85,7 @@ public class QuickAdapter extends BaseMultiItemQuickAdapter<news, BaseViewHolder
                         activity.startActivity(new Intent(activity,MyWebview.class));
                     }
                 });
-                if(!"".equals(item.getImgsrc())) {
+                if(!"".equals(item.getImgsrc())&& SharedPreferenceUtil.getWifiBoolean(activity)) {
                     Picasso.with(activity).load(item.getImgsrc()).placeholder(R.drawable.logo_white).into((ImageView) viewHolder.getView(R.id.img1));
                 }
                 break;

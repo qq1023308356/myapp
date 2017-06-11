@@ -74,4 +74,44 @@ public class SharedPreferenceUtil {
             return gson.fromJson(json, new TypeToken<List<NewsList>>(){}.getType());
         }
     }
+    public static void setlistanim(Activity activity,int listanim){
+        SharedPreferences preferences=activity.getSharedPreferences("Settings", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor=preferences.edit();
+        editor.putInt("listanim", listanim);
+        editor.commit();
+    }
+    public static int getlistanim(Activity activity){
+        SharedPreferences preferences=activity.getSharedPreferences("Settings", Context.MODE_PRIVATE);
+        return preferences.getInt("listanim",0);
+    }
+    public static void setcarouselanim(Activity activity,int carouselanim){
+        SharedPreferences preferences=activity.getSharedPreferences("Settings", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor=preferences.edit();
+        editor.putInt("carouselanim", carouselanim);
+        editor.commit();
+    }
+    public static int getcarouselanim(Activity activity){
+        SharedPreferences preferences=activity.getSharedPreferences("Settings", Context.MODE_PRIVATE);
+        return preferences.getInt("carouselanim",-1);
+    }
+    public static void setanimBoolean(Activity activity,Boolean animBoolean){
+        SharedPreferences preferences=activity.getSharedPreferences("Settings", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor=preferences.edit();
+        editor.putBoolean("animBoolean", animBoolean);
+        editor.commit();
+    }
+    public static boolean getanimBoolean(Activity activity){
+        SharedPreferences preferences=activity.getSharedPreferences("Settings", Context.MODE_PRIVATE);
+        return preferences.getBoolean("animBoolean",false);
+    }
+    public static void setWifiBoolean(Activity activity,Boolean animBoolean){
+        SharedPreferences preferences=activity.getSharedPreferences("Settings", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor=preferences.edit();
+        editor.putBoolean("WifiBoolean", animBoolean);
+        editor.commit();
+    }
+    public static boolean getWifiBoolean(Activity activity){
+        SharedPreferences preferences=activity.getSharedPreferences("Settings", Context.MODE_PRIVATE);
+        return preferences.getBoolean("WifiBoolean",true);
+    }
 }

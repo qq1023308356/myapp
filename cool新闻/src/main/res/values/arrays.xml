@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="listanim">
+        <item>默认</item>
+        <item>渐变</item>
+        <item>缩放</item>
+        <item>弹出</item>
+        <item>左进入</item>
+        <item>右进入</item>
+    </string-array>
+</resources>

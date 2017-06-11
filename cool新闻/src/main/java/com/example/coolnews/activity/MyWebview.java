@@ -113,6 +113,7 @@ public class MyWebview extends BaseActivity {
         webSettings.setDisplayZoomControls(false); //隐藏原生的缩放控件
 
         //其他细节操作
+
         webSettings.setAppCacheEnabled(true);//是否使用缓存
         webSettings.setCacheMode(WebSettings.LOAD_DEFAULT); //缓存
         webSettings.setDomStorageEnabled(true);
@@ -120,7 +121,7 @@ public class MyWebview extends BaseActivity {
         webSettings.setJavaScriptCanOpenWindowsAutomatically(true); //支持通过JS打开新窗口
         webSettings.setJavaScriptEnabled(true);//是否允许执行js，
         webSettings.setPluginState(WebSettings.PluginState.ON);
-        webSettings.setLoadsImagesAutomatically(true); //支持自动加载图片
+        webSettings.setLoadsImagesAutomatically(SharedPreferenceUtil.getWifiBoolean(MyWebview.this)); //支持自动加载图片
         webSettings.setDefaultTextEncodingName("utf-8");//设置编码格式
         webView.setWebChromeClient(new WebChromeClient(){
             @Override

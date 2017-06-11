@@ -1,18 +1,21 @@
 package com.example.coolnews.activity;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.os.Bundle;
+import android.support.design.widget.Snackbar;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.coolnews.R;
+import com.example.coolnews.tool.SharedPreferenceUtil;
 import com.suke.widget.SwitchButton;
 
 public class MySettings extends BaseActivity {
     private Toolbar toolbar;
-    private TextView font,cache,listanim,carouselanim;
+    private TextView font,cache,listanim;
     private SwitchButton switchButton,listanimSwitchButton;
     @Override
     public void viewClick(View v) {
@@ -22,8 +25,18 @@ public class MySettings extends BaseActivity {
             case R.id.cache:
                 break;
             case R.id.listanim:
-                break;
-            case R.id.carouselanim:
+                AlertDialog.Builder builder = new AlertDialog.Builder(this);
+                builder.setSingleChoiceItems(R.array.listanim, SharedPreferenceUtil.getlistanim(MySettings.this), new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                        SharedPreferenceUtil.setlistanim(MySettings.this,which);
+                        Snackbar.make(listanim,"设置成功,下拉刷新生效",Snackbar.LENGTH_SHORT).show();
+                    }
+                });
+
+                AlertDialog dialog = builder.create();
+                dialog.show();
                 break;
 
         }
@@ -50,12 +63,12 @@ public class MySettings extends BaseActivity {
         font=$(R.id.font);
         cache=$(R.id.cache);
         listanim=$(R.id.listanim);
-        carouselanim=$(R.id.carouselanim);
         switchButton=$(R.id.switch_button);
         listanimSwitchButton=$(R.id.listanim_switch_button);
         setSupportActionBar(toolbar);
         //关键下面两句话，设置了回退按钮，及点击事件的效果
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
     }
 
     @Override
@@ -63,25 +76,27 @@ public class MySettings extends BaseActivity {
         font.setOnClickListener(this);
         cache.setOnClickListener(this);
         listanim.setOnClickListener(this);
-        carouselanim.setOnClickListener(this);
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 finish();
             }
         });
+        listanim.setText(listanim.getText()+"("+this.getResources().getStringArray(R.array.listanim)[SharedPreferenceUtil.getlistanim(MySettings.this)]+")");
+        switchButton.setChecked(!SharedPreferenceUtil.getWifiBoolean(MySettings.this));
+        listanimSwitchButton.setChecked(SharedPreferenceUtil.getanimBoolean(MySettings.this));
         switchButton.setOnCheckedChangeListener(new SwitchButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(SwitchButton view, boolean isChecked) {
-                if (isChecked){
-                    Toast.makeText(MySettings.this, "666", Toast.LENGTH_SHORT).show();
-                }
+                SharedPreferenceUtil.setWifiBoolean(MySettings.this,isChecked);
+                Snackbar.make(listanim,"设置成功,下拉刷新生效",Snackbar.LENGTH_SHORT).show();
             }
         });
         listanimSwitchButton.setOnCheckedChangeListener(new SwitchButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(SwitchButton view, boolean isChecked) {
-
+                SharedPreferenceUtil.setanimBoolean(MySettings.this,isChecked);
+                Snackbar.make(listanim,"设置成功,下拉刷新生效",Snackbar.LENGTH_SHORT).show();
             }
         });
     }

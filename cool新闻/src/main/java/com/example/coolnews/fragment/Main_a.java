@@ -6,6 +6,7 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.support.design.widget.Snackbar;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -17,6 +18,7 @@ import com.example.coolnews.R;
 import com.example.coolnews.adapter.QuickAdapter;
 import com.example.coolnews.entity.news;
 import com.example.coolnews.tool.Jsouputil;
+import com.example.coolnews.tool.SharedPreferenceUtil;
 import com.example.coolnews.view.WrapContentLinearLayoutManager;
 import com.github.florent37.materialviewpager.header.MaterialViewPagerHeaderDecorator;
 
@@ -38,6 +40,7 @@ public class Main_a extends BaseFragment {
     private QuickAdapter quickAdapter;
     private List<news> items = new ArrayList<>();
     private List<news> item = new ArrayList<>();
+    private int [] listanim={0x00000001,0x00000002,0x00000003,0x00000004,0x00000005};
     private String url = "";
     private int pos=0;
 
@@ -108,9 +111,6 @@ public class Main_a extends BaseFragment {
 
     private void setNewList(final int type) {
         if (type==0&&quickAdapter!=null){
-            //quickAdapter.notifyItemRangeRemoved(0,quickAdapter.getData().size());
-            /*quickAdapter.getData().clear();
-            quickAdapter.notifyDataSetChanged();*/
             quickAdapter.notifyItemRangeRemoved(0,item.size()+items.size());
             items.clear();
         }
@@ -167,17 +167,23 @@ public class Main_a extends BaseFragment {
                         quickAdapter = new QuickAdapter(getActivity(), items);
                         quickAdapter.addData(item);
                         mRecyclerView.setAdapter(quickAdapter);
-                        quickAdapter.isFirstOnly(false);
+                        quickAdapter.isFirstOnly(SharedPreferenceUtil.getanimBoolean(getActivity()));
                         //quickAdapter.openLoadAnimation(BaseQuickAdapter.SCALEIN);//SCALEIN
-                        quickAdapter.openLoadAnimation(new BaseAnimation() {
-                            @Override
-                            public Animator[] getAnimators(View view) {
-                                return new Animator[]{
-                                        ObjectAnimator.ofFloat(view, "scaleY", 1, 1.1f, 1),
-                                        ObjectAnimator.ofFloat(view, "scaleX", 1, 1.1f, 1)
-                                };
-                            }
-                        });
+                        if (SharedPreferenceUtil.getlistanim(getActivity())==0){
+                            quickAdapter.openLoadAnimation(new BaseAnimation() {
+                                @Override
+                                public Animator[] getAnimators(View view) {
+                                    return new Animator[]{
+                                            ObjectAnimator.ofFloat(view, "scaleY", 1, 1.1f, 1),
+                                            ObjectAnimator.ofFloat(view, "scaleX", 1, 1.1f, 1)
+                                    };
+                                }
+                            });
+                        }else {
+                            //int listanim= Integer.parseInt("0x0000000"+ SharedPreferenceUtil.getlistanim(getActivity()));
+                            //Log.e("listanim",SharedPreferenceUtil.getlistanim(getActivity())+"");
+                            quickAdapter.openLoadAnimation(listanim[SharedPreferenceUtil.getlistanim(getActivity())-1]);
+                        }
                         quickAdapter.setOnLoadMoreListener(new BaseQuickAdapter.RequestLoadMoreListener() {
                             @Override
                             public void onLoadMoreRequested() {
@@ -208,6 +214,11 @@ public class Main_a extends BaseFragment {
 
             @Override
             public void onError(Exception e) {
+                Snackbar.make(mRecyclerView,"网络错误",Snackbar.LENGTH_SHORT).show();
+                mSwipeRefreshLayout.setRefreshing(false);
+                quickAdapter = new QuickAdapter(getActivity(), null);
+                mRecyclerView.setAdapter(quickAdapter);
+                quickAdapter.isFirstOnly(false);
                 //quickAdapter.loadMoreFail();
             }
         });
