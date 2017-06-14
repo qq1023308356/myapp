@@ -8,4 +8,9 @@
         <item>左进入</item>
         <item>右进入</item>
     </string-array>
+    <string-array name="fontsize">
+        <item>小</item>
+        <item>中</item>
+        <item>大</item>
+    </string-array>
 </resources>

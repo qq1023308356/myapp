@@ -159,9 +159,12 @@ public class MyWelcome extends BaseActivity{
         }else {
             mUserList= SharedPreferenceUtil.getmUserList(MyWelcome.this);
             mOtherList=SharedPreferenceUtil.getmOtherList(MyWelcome.this);
-            if(SharedPreferenceUtil.getFavoriteNewlsit(MyWelcome.this)!=null) {
-                MyApplication.newsList = SharedPreferenceUtil.getFavoriteNewlsit(MyWelcome.this);
-            }
+        }
+        if(SharedPreferenceUtil.getFavoriteNewlsit(MyWelcome.this)!=null) {
+            MyApplication.newsList = SharedPreferenceUtil.getFavoriteNewlsit(MyWelcome.this);
+        }
+        if(SharedPreferenceUtil.getuser(MyWelcome.this)!=null) {
+            MyApplication.MyUser = SharedPreferenceUtil.getuser(MyWelcome.this);
         }
         new Thread(){
             @Override
@@ -170,6 +173,7 @@ public class MyWelcome extends BaseActivity{
                 try {
                     sleep(300);
                     startActivity(MainActivity.class);
+                    finish();
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }

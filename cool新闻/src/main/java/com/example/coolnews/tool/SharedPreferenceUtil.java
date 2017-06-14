@@ -4,7 +4,9 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.SharedPreferences;
 
+import com.example.coolnews.MyApplication;
 import com.example.coolnews.entity.NewsList;
+import com.example.coolnews.entity.User;
 import com.example.coolnews.entity.news;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -18,6 +20,23 @@ import static com.example.coolnews.MyApplication.newsList;
  */
 
 public class SharedPreferenceUtil {
+    public static void setUser(Activity activity){
+        Gson gson=new Gson();
+        SharedPreferences preferences=activity.getSharedPreferences("User", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor=preferences.edit();
+        editor.putString("User", gson.toJson(MyApplication.MyUser));
+        editor.commit();
+    }
+    public static User getuser(Activity activity){
+        Gson gson=new Gson();
+        SharedPreferences preferences=activity.getSharedPreferences("User", Context.MODE_PRIVATE);
+        String json=preferences.getString("User", "");
+        if ("".equals(json)){
+            return null;
+        }else {
+            return gson.fromJson(json,User.class);
+        }
+    }
     public static void setNewlsit(Activity activity,List<NewsList> mUserList,List<NewsList> mOtherList){
         Gson gson=new Gson();
         SharedPreferences preferences=activity.getSharedPreferences("newslist", Context.MODE_PRIVATE);
@@ -113,5 +132,15 @@ public class SharedPreferenceUtil {
     public static boolean getWifiBoolean(Activity activity){
         SharedPreferences preferences=activity.getSharedPreferences("Settings", Context.MODE_PRIVATE);
         return preferences.getBoolean("WifiBoolean",true);
+    }
+    public static void setFontSize(Activity activity,int i){
+        SharedPreferences preferences=activity.getSharedPreferences("Settings", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor=preferences.edit();
+        editor.putInt("FontSize", i);
+        editor.commit();
+    }
+    public static int getFontSize(Activity activity){
+        SharedPreferences preferences=activity.getSharedPreferences("Settings", Context.MODE_PRIVATE);
+        return preferences.getInt("FontSize",1);
     }
 }

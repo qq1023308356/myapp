@@ -8,7 +8,7 @@ public class Constant {
 
     public final static boolean isDebug = true;
     public final static String APP_NAME = "Tutor";
-    public final static String host = "http://10.0.2.2:8080/Tutor/";
+    public final static String host = "http://www.digw.info/CoolNews/newsuser.php";
     public final static String userServer = host+"UserServlet";
 
 /*    List<NewsList> list1=new ArrayList<>();

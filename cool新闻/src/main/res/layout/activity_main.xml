@@ -38,10 +38,9 @@
         app:bmb_buttonEnum="simpleCircle"
         app:bmb_piecePlaceEnum="piecePlace_dot_3_4"
         app:bmb_buttonPlaceEnum="buttonPlace_sc_3_3"
-        app:bmb_showDelay="200"
-        app:bmb_showDuration="300"
-        app:bmb_hideDelay="200"
-        app:bmb_hideDuration="300"
+        app:bmb_showMoveEaseEnum="@integer/default_bmb_showMoveEaseEnum"
+        app:bmb_hideDelay="0"
+        app:bmb_hideDuration="0"
         />
 </RelativeLayout>
 

@@ -10,6 +10,7 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.example.coolnews.R;
+import com.example.coolnews.tool.DataCleanManager;
 import com.example.coolnews.tool.SharedPreferenceUtil;
 import com.suke.widget.SwitchButton;
 
@@ -17,26 +18,41 @@ public class MySettings extends BaseActivity {
     private Toolbar toolbar;
     private TextView font,cache,listanim;
     private SwitchButton switchButton,listanimSwitchButton;
+    private AlertDialog.Builder builder;
     @Override
     public void viewClick(View v) {
         switch (v.getId()){
             case R.id.font:
+                builder = new AlertDialog.Builder(this);
+                builder.setSingleChoiceItems(R.array.fontsize, SharedPreferenceUtil.getFontSize(MySettings.this), new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                        SharedPreferenceUtil.setFontSize(MySettings.this,which);
+                        Snackbar.make(listanim,"设置成功,下拉刷新生效",Snackbar.LENGTH_SHORT).show();
+                        font.setText("字体大小("+MySettings.this.getResources().getStringArray(R.array.fontsize)[which]+")");
+                    }
+                });
+
+                builder.create().show();
                 break;
             case R.id.cache:
+                DataCleanManager.clearAllCache(MySettings.this);
+                cache.setText("清楚缓存(0k)");
+                Snackbar.make(listanim,"清楚缓存成功",Snackbar.LENGTH_SHORT).show();
                 break;
             case R.id.listanim:
-                AlertDialog.Builder builder = new AlertDialog.Builder(this);
+                builder = new AlertDialog.Builder(this);
                 builder.setSingleChoiceItems(R.array.listanim, SharedPreferenceUtil.getlistanim(MySettings.this), new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         dialog.dismiss();
                         SharedPreferenceUtil.setlistanim(MySettings.this,which);
                         Snackbar.make(listanim,"设置成功,下拉刷新生效",Snackbar.LENGTH_SHORT).show();
+                        listanim.setText("列表动画("+MySettings.this.getResources().getStringArray(R.array.listanim)[which]+")");
                     }
                 });
-
-                AlertDialog dialog = builder.create();
-                dialog.show();
+                builder.create().show();
                 break;
 
         }
@@ -82,13 +98,19 @@ public class MySettings extends BaseActivity {
                 finish();
             }
         });
+        try {
+            cache.setText(cache.getText()+ "("+DataCleanManager.getTotalCacheSize(MySettings.this)+")");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        font.setText(font.getText()+"("+this.getResources().getStringArray(R.array.fontsize)[SharedPreferenceUtil.getFontSize(MySettings.this)]+")");
         listanim.setText(listanim.getText()+"("+this.getResources().getStringArray(R.array.listanim)[SharedPreferenceUtil.getlistanim(MySettings.this)]+")");
         switchButton.setChecked(!SharedPreferenceUtil.getWifiBoolean(MySettings.this));
         listanimSwitchButton.setChecked(SharedPreferenceUtil.getanimBoolean(MySettings.this));
         switchButton.setOnCheckedChangeListener(new SwitchButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(SwitchButton view, boolean isChecked) {
-                SharedPreferenceUtil.setWifiBoolean(MySettings.this,isChecked);
+                SharedPreferenceUtil.setWifiBoolean(MySettings.this,!isChecked);
                 Snackbar.make(listanim,"设置成功,下拉刷新生效",Snackbar.LENGTH_SHORT).show();
             }
         });

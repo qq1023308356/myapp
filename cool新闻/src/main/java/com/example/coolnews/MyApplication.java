@@ -4,6 +4,7 @@ import android.app.Application;
 
 import com.example.coolnews.entity.NewsList;
 import com.example.coolnews.entity.news;
+import com.example.coolnews.entity.User;
 import com.github.florent37.materialviewpager.MaterialViewPager;
 
 import java.util.ArrayList;
@@ -14,6 +15,7 @@ import java.util.List;
  */
 
 public class MyApplication extends Application {
+    public static User MyUser;
     public static MaterialViewPager mViewPager;
     public static List<NewsList> mUserList;
     public static List<NewsList> mOtherList;

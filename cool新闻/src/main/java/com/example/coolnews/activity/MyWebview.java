@@ -8,7 +8,6 @@ import android.os.Bundle;
 import android.support.design.widget.Snackbar;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
-import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -42,6 +41,13 @@ public class MyWebview extends BaseActivity {
     @Override
     public void viewClick(View v) {
 
+    }
+
+    @Override
+    protected void onNewIntent(Intent intent) {
+        super.onNewIntent(intent);
+        url= MyApplication.newsweb.getUrl();
+        setFontSize();
     }
 
     @Override
@@ -97,6 +103,8 @@ public class MyWebview extends BaseActivity {
                 }
             }
         });
+
+        setFontSize();
         //如果访问的页面中要与Javascript交互，则webview必须设置支持Javascript
         webSettings.setJavaScriptEnabled(true);
 
@@ -146,11 +154,13 @@ public class MyWebview extends BaseActivity {
                 @Override
                 public void onFinish(Document document) {
                     Elements scripts=document.select("script[src]");
+                    scripts.remove();
                     //Log.e("srcsize",scripts.size()+"");
-                    for (int i=0;i<scripts.size();i++){
-                        scripts.get(i).attr("src",scripts.get(i).attr("abs:src"));
+                    /*for (int i=0;i<scripts.size();i++){
+                        //scripts.get(i).attr("src",scripts.get(i).attr("abs:src"));
+                        scripts.get(i).remove();
                         //Log.e("src",scripts.get(i).attr("src"));
-                    }
+                    }*/
                     String src=document.select("div.video").select("video").attr("data-src");
                     if (document.select("div.video").size()>0) {
                         document.select("div.video").first().html("<video width=\"320\" height=\"240\" controls controls>\n" +
@@ -171,6 +181,11 @@ public class MyWebview extends BaseActivity {
                     document.select("span.wakeup_desc").remove();
                     document.select("a.bot_word").remove();
                     document.select("header").remove();
+                    document.select("div.hot_news").remove();
+                    document.select("section.article_comment").remove();
+                    document.select("div.hot_news").remove();
+                    document.select("div.page.js-page.on").first().html(document.select("div.page.js-page").html());
+                    //article_comment doc-footer-wrapper
                     // 设置WevView要显示的网页
                     webView.loadDataWithBaseURL(null, document.html(), "text/html", "utf-8", null);
                     //webView.loadUrl(src);
@@ -251,7 +266,7 @@ public class MyWebview extends BaseActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    @Override
+  /*  @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         if(webView.canGoBack()) {//当webview不是处于第一页面时，返回上一个页面
             webView.goBack();
@@ -262,5 +277,20 @@ public class MyWebview extends BaseActivity {
         }
 
         return super.onKeyDown(keyCode, event);
+    }*/
+    public void setFontSize(){
+        if (webSettings!=null) {
+            switch (SharedPreferenceUtil.getFontSize(MyWebview.this)){
+                case 0:
+                    webSettings.setTextSize(WebSettings.TextSize.SMALLER);
+                    break;
+                case 1:
+                    webSettings.setTextSize(WebSettings.TextSize.NORMAL);
+                    break;
+                case 2:
+                    webSettings.setTextSize(WebSettings.TextSize.LARGER);
+                    break;
+            }
+        }
     }
 }

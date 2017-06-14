@@ -17,10 +17,11 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".activity.MainActivity">
-        </activity>
+        <activity android:name=".activity.MainActivity"></activity>
         <activity android:name=".activity.MyAdd" />
-        <activity android:name=".activity.MyWebview" />
+        <activity
+            android:name=".activity.MyWebview"
+            android:launchMode="singleInstance" />
         <activity android:name=".activity.MyFavorite" />
         <activity android:name=".activity.MySettings" />
         <activity android:name=".activity.MyWelcome">
@@ -30,6 +31,13 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".activity.LoginActivity"
+            android:theme="@style/AppBaseTheme" />
+        <activity
+            android:name=".activity.RegisterActivity"
+            android:theme="@style/AppBaseTheme" />
+        <activity android:name=".activity.UserActivity"></activity>
     </application>
 
 </manifest>

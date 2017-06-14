@@ -101,6 +101,9 @@ public class MainActivity extends BaseActivity{
                     case 1:
                         startActivity(MySettings.class);
                         break;
+                    case 2:
+                        startActivity(UserActivity.class);
+                        break;
                 }
             }
 

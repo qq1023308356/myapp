@@ -1,1 +1,1 @@
-include ':哔哩哔哩动画', ':wifi万能钥匙', ':天气博士', ':洪荒之水', ':教学app', ':Map', ':考试', ':mapapp', ':myjava', ':DB Demo', ':cool新闻', '滑动效果', '过渡动画', ':service_my'
+include ':哔哩哔哩动画', ':wifi万能钥匙', ':天气博士', ':洪荒之水', ':教学app', ':Map', ':考试', ':mapapp', ':myjava', ':DB Demo', ':cool新闻', '滑动效果', ':service_my'
